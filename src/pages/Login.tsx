@@ -5,13 +5,19 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import useUser from '@/hooks/useUser'
+
+
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    email: '',
+    userName: '',
     password: ''
   })
+
+  const { performLogin } = useUser()
+  const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -20,10 +26,14 @@ export default function Login() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Aquí iría la lógica para enviar los datos de inicio de sesión
-    console.log('Datos de inicio de sesión:', formData)
+     const success = await performLogin(formData.userName, formData.password)
+    if (success) {
+      navigate('/products')
+      setTimeout(() => { window.location.reload() }, 2000)
+
+    }
   }
 
   return (
@@ -37,11 +47,11 @@ export default function Login() {
           <form onSubmit={handleSubmit}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Correo electrónico</Label>
-                <Input id="email" name="email" type="email" placeholder="Ingresa tu correo electrónico" onChange={handleChange} />
+                <Label htmlFor="username">Username</Label>
+                <Input id="userName" name="userName" type="text" placeholder="Ingresa tu correo electrónico" onChange={handleChange} />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">Contraseña</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input id="password" name="password" type="password" placeholder="Ingresa tu contraseña" onChange={handleChange} />
               </div>
             </div>

@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { ShoppingCart, Package, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,13 +10,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Link } from "react-router-dom"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import useUser from '@/hooks/useUser'
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const { isLoggedIn, logout, user } = useUser()
+  const fallbackAvatar = user?.userDTO
+    ? user.userDTO.name.charAt(0) + user.userDTO.lastName.charAt(0)
+    : '??'
 
-  const handleLoginLogout = () => {
-    setIsLoggedIn(!isLoggedIn)
-  }
+  
 
   return (
     <nav className="bg-white shadow">
@@ -46,15 +47,15 @@ export default function Navbar() {
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             {isLoggedIn ? (
-                <div className="flex items-center">
+              <div className="flex items-center">
                 <Avatar>
                   <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Foto de perfil" />
-                  <AvatarFallback>JD</AvatarFallback>
+                  <AvatarFallback>{ fallbackAvatar }</AvatarFallback>
                 </Avatar>
-                <Button variant="ghost" onClick={handleLoginLogout} className="ml-3">
+                <Button variant="ghost" onClick={logout} className="ml-3">
                   Cerrar sesión
                 </Button>
-                </div>
+              </div>
             ) : (
               <Link to="/login" className="flex items-center"> Iniciar sesión </Link>
             )}
@@ -81,7 +82,7 @@ export default function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   {isLoggedIn ? (
-                    <button onClick={handleLoginLogout} className="flex items-center">
+                    <button onClick={logout} className="flex items-center">
                       Cerrar sesión
                     </button>
                   ) : (

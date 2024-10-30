@@ -17,10 +17,10 @@ export default function ProductCard({product, onAddToCart}: ProductCardProps) {
         <p>Precio: ${product.price.toFixed(2)}</p>
         <p>Stock: {product.stock}</p>
         <p>Categorías: {product.categoryList.map(category => category.categoryName).join(', ')}</p>
+        {onAddToCart && (
+          <button onClick={() => onAddToCart(product)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Agregar al carrito</button>
+        )}
       </CardContent>
-      {onAddToCart && (
-        <button onClick={() => onAddToCart(product)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Agregar al carrito</button>
-      )}
     </Card>
   )
 };

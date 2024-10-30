@@ -11,37 +11,41 @@ import { Category } from '@/interfaces/categoryInterface'
 
 import { apiUrl } from '@/constants/constants'
 import ProductCard from '@/components/ProductCard'
+import myFetch from '@/utils/myFetch'
+import useCart from '@/hooks/useCart'
+import { toast } from 'react-toastify'
 
 export default function ProductList() {
   const [products, setProducts] = useState<ProductDTO[]>([])
   const [filter, setFilter] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<number | null>(null)
   const [categories, setCategories] = useState<Category[]>([])
-  const [cart, setCart] = useState<ProductDTO[]>([])
+  const { addProduct } = useCart()
 
   useEffect(() => {
-    // Usar la API para obtener los productos
-    fetch(`${apiUrl}/products/getProducts`)
+    // Usar la API para obtener los productos con myFetch
+    myFetch({ url: `${apiUrl}/products/getProducts` })
       .then(response => response.json())
       .then(data => setProducts(data as ProductDTO[]))
-      .catch(error => console.error('Error fetching products:', error))
+      .catch(() => toast.error('Error al obtener los productos, intenta loguearte'))
   }, [])
 
   useEffect(() => {
-    // Obtener categorías de la API
-    fetch(`${apiUrl}/Categories/getCategories`)
+    // Obtener categorías de la API con myFetch
+    myFetch({ url: `${apiUrl}/Categories/getCategories` })
       .then(response => response.json())
       .then(data => setCategories(data as Category[]))
       .catch(error => console.error('Error fetching categories:', error))
   }, [])
 
   const handleAddToCart = (product: ProductDTO) => {
-    setCart(prevCart => [...prevCart, product])
+    addProduct(product)
+    toast.success('Producto agregado al carrito')
   }
 
   const filteredProducts = products.filter(product => 
     product.productName.toLowerCase().includes(filter.toLowerCase()) &&
-    (categoryFilter === null || product.categoryList.some(cat => cat.id === categoryFilter))
+    (categoryFilter === null || categoryFilter === 0 || product.categoryList.some(cat => cat.id === categoryFilter))
   )
 
   return (
@@ -76,21 +80,6 @@ export default function ProductList() {
         {filteredProducts.map(product => (
           <ProductCard key={product.productName} product={product} onAddToCart={handleAddToCart} />
         ))}
-      </div>
-      {/* Carrito de compras */}
-      <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Carrito de Compras</h2>
-        {cart.length === 0 ? (
-          <p>No hay productos en el carrito.</p>
-        ) : (
-          <ul>
-            {cart.map((item, index) => (
-              <li key={index}>
-                {item.productName} - ${item.price.toFixed(2)}
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
     </div>
   )
