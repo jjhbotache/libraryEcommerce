@@ -3,9 +3,10 @@
 
 ## TODO
 - navbar
-   - img creada
-   - cerrar session
-   - products/cart
+   - ~~img creada~~
+   - ~~cerrar session~~
+   - ~~products/cart~~
+   - sync with data
 
 
 - login (session storage)
