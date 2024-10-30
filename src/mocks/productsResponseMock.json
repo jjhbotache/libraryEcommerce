@@ -1,0 +1,54 @@
+[
+  {
+    "productName": "Producto 1",
+    "description": "Descripción del Producto 1",
+    "price": 19.99,
+    "stock": 10,
+    "imageUrl": "https://via.placeholder.com/150",
+    "categoryList": [
+      { "id": 1, "categoryName": "Categoría 1" },
+      { "id": 2, "categoryName": "Categoría 2" }
+    ]
+  },
+  {
+    "productName": "Producto 2",
+    "description": "Descripción del Producto 2",
+    "price": 29.99,
+    "stock": 5,
+    "imageUrl": "https://via.placeholder.com/150",
+    "categoryList": [
+      { "id": 1, "categoryName": "Categoría 1" }
+    ]
+  },
+  {
+    "productName": "Producto 3",
+    "description": "Descripción del Producto 3",
+    "price": 39.99,
+    "stock": 15,
+    "imageUrl": "https://via.placeholder.com/150",
+    "categoryList": [
+      { "id": 2, "categoryName": "Categoría 2" }
+    ]
+  },
+  {
+    "productName": "Producto 4",
+    "description": "Descripción del Producto 4",
+    "price": 49.99,
+    "stock": 8,
+    "imageUrl": "https://via.placeholder.com/150",
+    "categoryList": [
+      { "id": 3, "categoryName": "Categoría 3" }
+    ]
+  },
+  {
+    "productName": "Producto 5",
+    "description": "Descripción del Producto 5",
+    "price": 59.99,
+    "stock": 20,
+    "imageUrl": "https://via.placeholder.com/150",
+    "categoryList": [
+      { "id": 1, "categoryName": "Categoría 1" },
+      { "id": 3, "categoryName": "Categoría 3" }
+    ]
+  }
+]
