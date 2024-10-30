@@ -9,16 +9,16 @@
    - sync with data
 
 
-- login (session storage)
-- register 
+- ~~login (session storage)~~
+- ~~register~~ 
 ---
 - carrito de compras 
-  - toast succes
+  - ~~toast succes~~
   - pagina carrito
-    - products (LS) - total
+    - ~~products (LS) - total~~
     - info del envio 
     - btn ordenar  
 
-- botón de cantidad por producto
+- ~~botón de cantidad por producto~~
 
 # libraryEcommerce
